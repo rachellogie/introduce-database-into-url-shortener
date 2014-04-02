@@ -25,6 +25,11 @@ class UrlShortener < Sinatra::Application
     end
   end
 
+  get '/favicon.ico' do
+    "None here"
+  end
+
+
   get '/:id' do
     show_stats = params['stats'] == 'true'
     id = params['id'].to_i
