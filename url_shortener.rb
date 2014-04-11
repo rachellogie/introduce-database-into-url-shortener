@@ -4,8 +4,11 @@ require 'sequel'
 class UrlShortener < Sinatra::Application
   set :public_folder, './public'
 
-  URLS = {}
-  DB = Sequel.connect('postgres://gschool_user:password@localhost/urls_testing')
+  if UrlShortener.development?
+    ENV['DATABASE_URL'] = 'postgres://gschool_user:password@localhost/urls_testing'
+  end
+
+  DB = Sequel.connect(ENV['DATABASE_URL'])
 
   get '/' do
     erb :index, locals:{error: '', url_to_shorten: ''}
